@@ -51,7 +51,7 @@ public class Bota {
 
     public Integer caminar(Bota bota, int tiempo) {
         
-        Integer consumoEnergia = 0;;
+        Integer consumoEnergia = 0;
             
             consumoEnergia = consumoEnergia + (bota.getConsumo() * tiempo);
 

@@ -16,6 +16,20 @@ public class ConsolaService {
         return consola;
     }
 
-    
+    public boolean repararConsola(Consola consola) {
+
+        boolean reparado = true;
+        int proReparar = random.nextInt(10) + 1;
+        if (proReparar <= 4) {
+            consola.setDamage(false);
+            System.out.println("Dispositivo Consola reparado, Dip.Damage = " + consola.getDamage());
+            reparado = true;
+            return reparado;
+        } else {
+            System.out.println("El dispositivo no se pudo reparar");
+            reparado = false;
+            return reparado;
+        }
+    }
 
 }

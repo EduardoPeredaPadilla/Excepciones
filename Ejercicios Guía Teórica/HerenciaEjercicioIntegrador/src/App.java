@@ -20,12 +20,13 @@ public class App {
         
         System.out.println("Menú de opciones");
         System.out.println("1. Caminar");
-        System.out.println("2.Correr");
+        System.out.println("2. Correr");
         System.out.println("3. Propulsar");
         System.out.println("4. Volar");
         System.out.println("5. Disparar");
         System.out.println("6. Reparar");
-        System.out.println("7. Salir");
+        System.out.println("7. Revisar para reparar");
+        System.out.println("8. Salir");
         Menu(armadura);
 
         /*int tiempo = 1;
@@ -67,11 +68,12 @@ public class App {
         ArmaduraService armServ = new ArmaduraService();
         Scanner scan = new Scanner(System.in);
 
-        
+        System.out.println("");
+        System.out.println("ingrese la opción deseada");
         int opMenu = scan.nextInt();
         int tiempo;
 
-        while (opMenu != 7) {
+        while (opMenu != 8) {
             
             switch (opMenu) {
                 case 1:
@@ -87,12 +89,51 @@ public class App {
                     System.out.println("Opción 2. Correr");
                     System.out.println("Ingresa el tiempo (número entero)");
                     tiempo = scan.nextInt();
+                    armServ.correrArm(armadura, tiempo);
                     System.out.println("------------ Estatus Armatura después de correr -------------");
                     armServ.mostrarArmadura(armadura); 
                     System.out.println("");
                     break;
+                case 3:
+                    System.out.println("Opción 3. Propulsar");
+                    System.out.println("Ingresa el tiempo (número entero)");
+                    tiempo = scan.nextInt();
+                    armServ.propulsarArm(armadura, tiempo);
+                    System.out.println("------------ Estatus Armatura después de propulsar -------------");
+                    armServ.mostrarArmadura(armadura); 
+                    System.out.println("");
+                    break;
+                case 4:
+                    System.out.println("Opción 4. Volar");
+                    System.out.println("Ingresa el tiempo (número entero)");
+                    tiempo = scan.nextInt();
+                    armServ.volarArm(armadura, tiempo);
+                    System.out.println("------------ Estatus Armatura después de volar -------------");
+                    armServ.mostrarArmadura(armadura); 
+                    System.out.println("");
+                    break;
+                case 5:
+                    System.out.println("Opción 5. Disparar");
+                    System.out.println("Ingresa el tiempo (número entero)");
+                    tiempo = scan.nextInt();
+                    armServ.dispararArm(armadura, tiempo);
+                    System.out.println("------------ Estatus Armatura después de disparar -------------");
+                    armServ.mostrarArmadura(armadura); 
+                    System.out.println("");
+                    break;
+                case 6:
+                    System.out.println("Opción 6. Reparar");
+                    boolean repTodo = armServ.repararArm(armadura);
+                    System.out.println("Reparación = " + repTodo);
+                    System.out.println("");
+                    break;
                 case 7:
-                    System.out.println("Opción 7. Salir");
+                    System.out.println("Opción 7. Revisar para reparar");
+                    armServ.revisarDisp(armadura);
+                    System.out.println("");
+                    break;
+                case 8:
+                    System.out.println("Opción 8. Salir");
                     System.out.println("Hasta pronto!");
                     scan.close();
                     return;
@@ -102,12 +143,15 @@ public class App {
             }
             System.out.println("Menú de opciones");
             System.out.println("1. Caminar");
-            System.out.println("2.Correr");
+            System.out.println("2. Correr");
             System.out.println("3. Propulsar");
             System.out.println("4. Volar");
             System.out.println("5. Disparar");
             System.out.println("6. Reparar");
-            System.out.println("7. Salir");
+            System.out.println("7. Revisar para reparar");
+            System.out.println("8. Salir");
+            System.out.println("");
+            System.out.println("ingrese la opción deseada");
             opMenu = scan.nextInt();
         }
         scan.close();

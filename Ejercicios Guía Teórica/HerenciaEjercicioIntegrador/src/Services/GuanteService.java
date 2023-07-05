@@ -60,19 +60,25 @@ public class GuanteService {
         return consumoEnergia;
     }
 
-    public void repararGuantes(ArrayList<Guante> guantes) {
+    public boolean repararGuantes(ArrayList<Guante> guantes) {
 
+        boolean reparado = true;
         for (Guante guante : guantes) {
             int probReparar = random.nextInt(10) + 1;
-            if (probReparar <= 4) {
+            if (guante.getDamage() == true) {
+                if (probReparar <= 4) {
                 guante.setDamage(false);
-                System.out.println("Dispositivo "+ guante.getOrientacion() + " reparado, Disp.Dañado = " + guante.getDamage());    
+                System.out.println("Dispositivo "+ guante.getOrientacion() + " reparado, Disp.Dañado = " + guante.getDamage());   
+                reparado = true;
+                return reparado; 
             } else {
-                if (guante.getDamage() == true) {
-                    System.out.println("El dispositivo " + guante.getOrientacion() + " no se pudo reparar");
-                }
-                
+                System.out.println("El dispositivo " + guante.getOrientacion() + " no se pudo reparar");
+                reparado = false;
+                return reparado;
             }
+            }
+            
         }
+    return reparado; 
     }
 }

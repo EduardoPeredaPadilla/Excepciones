@@ -51,10 +51,10 @@ public class ArmaduraService {
         
         BotaService botServ = new BotaService();
         Integer consumoEnergia = botServ.caminarBotas(armadura.getBotas(), tiempo);
-        if (consumoEnergia == 0) {
+        /*if (consumoEnergia == 0) {
             System.out.println("Reparando daños ...");
             botServ.repararBotas(armadura.getBotas());
-        }
+        }*/
         System.out.println("Energía Consumida Caminando = " + consumoEnergia);
         armadura.setEnergia(armadura.getEnergia() - consumoEnergia);
 
@@ -65,10 +65,10 @@ public class ArmaduraService {
 
         BotaService botServ = new BotaService();
         Integer consumoEnergia = botServ.correrBotas(armadura.getBotas(), tiempo);
-        if (consumoEnergia == 0) {
+        /*if (consumoEnergia == 0) {
             System.out.println("Reparando daños ...");
             botServ.repararBotas(armadura.getBotas());
-        }
+        }*/
         System.out.println("Energía Consumida Corriendo = " + consumoEnergia);
         armadura.setEnergia(armadura.getEnergia() - consumoEnergia);
 
@@ -79,10 +79,10 @@ public class ArmaduraService {
 
         BotaService botServ = new BotaService();
         Integer consumoEnergia = botServ.propulsarBotas(armadura.getBotas(), tiempo);
-        if (consumoEnergia == 0) {
+        /*if (consumoEnergia == 0) {
             System.out.println("Reparando daños ...");
             botServ.repararBotas(armadura.getBotas());
-        }
+        }*/
         System.out.println("Energía Consumida Propulsandose = " + consumoEnergia);
         armadura.setEnergia(armadura.getEnergia() - consumoEnergia);
 
@@ -94,10 +94,10 @@ public class ArmaduraService {
 
         BotaService botServ = new BotaService();
         Integer consumoEnergia = botServ.volarBotas(armadura.getBotas(), tiempo);
-        if (consumoEnergia == 0) {
+        /*if (consumoEnergia == 0) {
             System.out.println("Reparando daños ...");
             botServ.repararBotas(armadura.getBotas());
-        }
+        }*/
         GuanteService guantServ = new GuanteService();
         consumoEnergia = consumoEnergia + guantServ.volarGuantes(armadura.getGuantes(), tiempo);
         System.out.println("Energía Consumida Volando = " + consumoEnergia);
@@ -142,6 +142,37 @@ public class ArmaduraService {
         armadura.setBateria(((float) armadura.getEnergia()/armadura.getEnergiaMax()) * 100);
 
         
+        
+    }
+
+    public boolean repararArm(Armadura armadura) {
+
+        boolean repTodo;
+        BotaService botServ = new BotaService();
+        GuanteService guantServ = new GuanteService();
+        boolean repBot = botServ.repararBotas(armadura.getBotas());
+        boolean repGte = guantServ.repararGuantes(armadura.getGuantes());
+
+        if (repBot == true && repGte == true) {
+            repTodo = true;
+        } else {
+            repTodo = false;
+        }
+        return repTodo;
+    }
+
+    public void revisarDisp(Armadura armadura) {
+
+        boolean repTodo = false;
+        int probDestroy = 4;
+        do {
+            probDestroy = random.nextInt(10) + 1;
+            if (probDestroy <= 3) {
+                System.out.println("El dispositivo no se pudeo reparar y quedó destruido");
+            } else {
+                repTodo = repararArm(armadura);
+            }
+        } while (repTodo != true || probDestroy <= 3);
         
     }
 

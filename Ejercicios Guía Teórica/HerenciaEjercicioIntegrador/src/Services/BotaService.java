@@ -98,20 +98,26 @@ public class BotaService {
         return consumoEnergia;
     }
 
-    public void repararBotas(ArrayList<Bota> botas) {
+    public boolean repararBotas(ArrayList<Bota> botas) {
 
+        boolean reparado = true;
         for (Bota bota : botas) {
             int proReparar = random.nextInt(10) + 1;
-            if (proReparar <= 4) {
+            if (bota.getDamage() == true) {
+                if (proReparar <= 4) {
                 bota.setDamage(false);
                 System.out.println("Dispositivo "+ bota.getOrientacion() + " reparado, Disp.Dañado = " + bota.getDamage());
-            } else{
-                if (bota.getDamage() == true) {
+                reparado = true;
+                return reparado;
+                } else{
                     System.out.println("El dispositivo " + bota.getOrientacion() + " no se pudo reparar");
+                    reparado = false;
+                    return reparado;
                 }
-                
             }
+            
         }
+        return reparado;    
     }
 
 }
