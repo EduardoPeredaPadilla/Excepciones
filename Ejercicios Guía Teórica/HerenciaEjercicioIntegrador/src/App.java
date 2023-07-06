@@ -3,6 +3,8 @@
 import java.util.Scanner;
 
 import Entidades.Armadura;
+import Entidades.ObjVolServ;
+import Entidades.ObjetoVolador;
 import Services.ArmaduraService;
 
 public class App {
@@ -16,7 +18,7 @@ public class App {
         armServ.mostrarArmadura(armadura); 
         System.out.println("");
         
-        System.out.println("Bienvenido, soy JARVIS");
+        /*System.out.println("Bienvenido, soy JARVIS");
         
         System.out.println("Menú de opciones");
         System.out.println("1. Caminar");
@@ -27,7 +29,22 @@ public class App {
         System.out.println("6. Reparar");
         System.out.println("7. Revisar para reparar");
         System.out.println("8. Salir");
-        Menu(armadura);
+        Menu(armadura);*/
+
+        ObjetoVolador[] objetosVoladores = new ObjetoVolador[10];
+        ObjVolServ obServ = new ObjVolServ();
+
+        System.out.println("Objetos Voladores");
+        System.out.println("");
+        for (int i = 0; i < objetosVoladores.length; i++) {
+            ObjetoVolador obVol = obServ.agregarObjeto();
+            objetosVoladores[i] = obVol;
+            System.out.println(objetosVoladores[i]);
+            System.out.println("");
+        }
+
+        armServ.mostrarDistObjVol(armadura, objetosVoladores);
+
 
         /*int tiempo = 1;
         System.out.println("");
@@ -129,7 +146,12 @@ public class App {
                     break;
                 case 7:
                     System.out.println("Opción 7. Revisar para reparar");
-                    armServ.revisarDisp(armadura);
+                    boolean dispRep = armServ.revisarDisp(armadura);
+                    if (dispRep == false) {
+                        System.out.println("El dispositivo de destruyo, regresa a casa.");
+                        scan.close();
+                        return;
+                    }
                     System.out.println("");
                     break;
                 case 8:

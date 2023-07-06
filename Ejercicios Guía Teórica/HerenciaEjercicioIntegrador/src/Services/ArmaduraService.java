@@ -3,6 +3,7 @@ package Services;
 import java.util.Random;
 import Entidades.Armadura;
 import Entidades.Consola;
+import Entidades.ObjetoVolador;
 import Entidades.Sintetizador;
 
 public class ArmaduraService {
@@ -116,6 +117,17 @@ public class ArmaduraService {
         armadura.setBateria(((float) armadura.getEnergia()/armadura.getEnergiaMax()) * 100);
     }
 
+    public Integer dispararArmObjVol(Armadura armadura, int tiempo) {
+
+        GuanteService guantServ = new GuanteService();
+        Integer consumoEnergia = guantServ.dispararGuantes(armadura.getGuantes(), tiempo);
+        System.out.println("Energía Consumida Disparando = " + consumoEnergia);
+        armadura.setEnergia(armadura.getEnergia() - consumoEnergia);
+
+        armadura.setBateria(((float) armadura.getEnergia()/armadura.getEnergiaMax()) * 100);
+        return consumoEnergia;
+    }
+
     public void escribirConsola(Armadura armadura, int tiempo) {
 
         
@@ -161,7 +173,7 @@ public class ArmaduraService {
         return repTodo;
     }
 
-    public void revisarDisp(Armadura armadura) {
+    public boolean revisarDisp(Armadura armadura) {
 
         boolean repTodo = false;
         int probDestroy = 4;
@@ -169,12 +181,57 @@ public class ArmaduraService {
             probDestroy = random.nextInt(10) + 1;
             if (probDestroy <= 3) {
                 System.out.println("El dispositivo no se pudeo reparar y quedó destruido");
+                repTodo = false;
+                return repTodo;
             } else {
                 repTodo = repararArm(armadura);
+                return repTodo;
             }
         } while (repTodo != true || probDestroy <= 3);
         
     }
+
+    public void mostrarDistObjVol(Armadura armadura, ObjetoVolador[] objetosVoladores) {
+
+        for (int i = 0; i < objetosVoladores.length; i++) {
+            
+            Integer distancia;
+            Integer[] coordenadas = objetosVoladores[i].getCoordenadas();
+            distancia = Integer.valueOf((int)Math.sqrt(Math.pow((coordenadas[0]-0), 2) + Math.pow((coordenadas[1]-0), 2) + Math.pow((coordenadas[2]-0), 2)));
+            System.out.println("Objeto volador detectado");
+            System.out.println(objetosVoladores[i]);
+            System.out.println("La distancia con el " + objetosVoladores[i]);
+            System.out.println("Es de " + distancia);
+            System.out.println("");
+            if (objetosVoladores[i].isHostil()) {
+                System.out.println(objetosVoladores[i]);
+                System.out.println("Este objeto es hostil");
+                System.out.println("Destruir!");
+                System.out.println("La distancia con el " + objetosVoladores[i]);
+                System.out.println("Es de " + distancia);
+                System.out.println("");
+                do {
+                    dispararArm(armadura, 5);
+                    objetosVoladores[i].setResistencia(objetosVoladores[i].getResistencia()- distancia);
+                } while (armadura.getEnergia() > 0 || objetosVoladores[i].getResistencia() > 0);
+                System.out.println("");
+                if (objetosVoladores[i].getResistencia() <= 0) {
+                    System.out.println("El ObjVol " + objetosVoladores[i] + " ha sido destruido");
+                    System.out.println("");
+                } else if(armadura.getEnergia() <= 0) {
+                    System.out.println("Se ha agotado la energía de la armadura");
+                    System.out.println("");
+                }
+            }
+            System.out.println("");
+
+        }
+        System.out.println("");
+        System.out.println("La energía restante de la armadura es de " + armadura.getEnergia());
+
+    }
+
+
 
     public void mostrarArmadura(Armadura armadura) {
 

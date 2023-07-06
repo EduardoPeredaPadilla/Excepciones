@@ -50,12 +50,12 @@ public class GuanteService {
                 return consumoEnergia;
             }
             consumoEnergia = consumoEnergia + guante.disparar(guante, tiempo);
-            int probDamage = random.nextInt(10) + 1;
+            /*int probDamage = random.nextInt(10) + 1;
             if (probDamage <= 3) {
                 guante.setDamage(true);
                 System.out.println(" + Alerta!!!");
                 System.out.println("   + Dispositivo Dañado");
-            }
+            }*/
         }
         return consumoEnergia;
     }
