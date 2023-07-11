@@ -25,7 +25,7 @@ public class ObjVolService {
         int[] coordenadas = new int[3];
 
         for (int i = 0; i < 3; i++) {
-            Integer valorEje = random.nextInt(100) + 10;
+            int valorEje = random.nextInt(100) + 10;
             coordenadas[i] = valorEje;
         }
 

@@ -52,6 +52,10 @@ public class ObjetoVolador {
         return this.coordenadas;
     }
 
+    public int getCoordenadas(int i) {
+        return coordenadas[i];
+    }
+
     public void setCoordenadas(int[] coordenadas) {
         this.coordenadas = coordenadas;
     }
@@ -71,7 +75,7 @@ public class ObjetoVolador {
         return "{" +
             " Hostil = " + isHostil() +
             " Resistencia = " + getResistencia() +
-            " Coordenadas = " + getCoordenadas() + 
+            " Coordenadas = [" + getCoordenadas(0) + ", " + getCoordenadas(1) + ", " + getCoordenadas(2)  + "]"+ 
             " Estado = " + getEstado() + "}";
     }
 
