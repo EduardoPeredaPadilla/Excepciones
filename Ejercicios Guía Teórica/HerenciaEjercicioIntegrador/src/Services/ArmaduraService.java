@@ -213,7 +213,7 @@ public class ArmaduraService {
                 do {
                     dispararArm(armadura, 5);
                     objetosVoladores[i].setResistencia(objetosVoladores[i].getResistencia()- distancia);
-                } while (armadura.getEnergia() > 0 || objetosVoladores[i].getResistencia() > 0);
+                } while (armadura.getEnergia() > 0 && objetosVoladores[i].getResistencia() > 0);
                 System.out.println("");
                 if (objetosVoladores[i].getResistencia() <= 0) {
                     System.out.println("El ObjVol " + objetosVoladores[i] + " ha sido destruido");
@@ -221,6 +221,8 @@ public class ArmaduraService {
                 } else if(armadura.getEnergia() <= 0) {
                     System.out.println("Se ha agotado la energía de la armadura");
                     System.out.println("");
+                    System.out.println("La energía restante de la armadura es de " + armadura.getEnergia());
+                    return;
                 }
             }
             System.out.println("");
