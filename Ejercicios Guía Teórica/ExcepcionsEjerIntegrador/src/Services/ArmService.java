@@ -210,25 +210,29 @@ public class ArmService {
                 }
             }
             System.out.println("");
-            String resp = "";
+            int resp = 0;
             do {
                 System.out.println("Deseas intentar reparar los dispositivos dañados?");
-                System.out.println("(S) Si");
-                System.out.println("(N). No");
-                resp = scan.next();
+                System.out.println("(1) Si");
+                System.out.println("(2). No");
+                resp = scan.nextInt();
                 /*try {
-                    resp = scan.next();
+                    resp = scan.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Dato de respuesta inválido desde Service");
-                }*/
-                if (!resp.equalsIgnoreCase("S") && !resp.equalsIgnoreCase("N") ) {
+                    revisarEstadoArmadura(arm);
+                    scan.close();
+                    return;
+                }
+                /*if (resp != 1 && resp != 2 ) {
                     System.out.println("Opción inválida");
-                } else if (resp.equalsIgnoreCase("S")) {
+                } else */ 
+                if (resp == 1) {
                     arreglarDispositivos(arm, dispositivosDaniados);
-                } else if (resp.equalsIgnoreCase("N")) {
+                } else if (resp == 2) {
                     System.out.println("No se intento repara los Dispositivos");
                 }
-            } while (!resp.equalsIgnoreCase("N") && !resp.equalsIgnoreCase("S"));
+            } while (resp != 1 && resp != 2);
             
         } else {
             System.out.println(" No se encontraron Dispositivos Dañados");
@@ -275,6 +279,12 @@ public class ArmService {
                         sintRep.setEstado(Estado.OPTIMO);
                         arm.getCasco().setSint(sintRep);
                     }
+                } else if (object instanceof Radar) {
+                    Radar radar = (Radar) object;
+                    if (radar.arreglarDispositivo(3)) {
+                        radar.setEstado(Estado.OPTIMO);
+                        arm.setRadar(radar);
+                    }
                 }
             }
         }
@@ -294,8 +304,9 @@ public class ArmService {
 
     public void mostrarObjVolHostiles(Armadura arm) throws InputMismatchException, EnergiaInsuficienteException, DamageDeviceException, DestroyedDeviceException {
 
-        int i = 1;
-        String resp = "";
+        Scanner scan = new Scanner(System.in);
+        int i = 1;  
+        int resp;
         System.out.println("* Objetos Voladores Hostiles");
         ObjetoVolador[] objetosVoladores = arm.getRadar().getObjetosVoladores();
         for (ObjetoVolador objetoVolador : objetosVoladores) {
@@ -305,23 +316,21 @@ public class ArmService {
                 System.out.println("");
                 do {
                     System.out.println("Deseas atacar este Objeto Volador");
-                    System.out.println("(S) Si");
-                    System.out.println("(N) No");
-                    resp = scan.next();
+                    System.out.println("(1) Si");
+                    System.out.println("(2) No");
+                    resp = scan.nextInt();
                     /*try {
-                        resp = scan.next();
+                        resp = scan.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("Respuesta incorrecta");
                     }*/
-                    if (resp.equalsIgnoreCase("S")) {
+                    if (resp == 1) {
                         atacar(arm, objetoVolador);
-                    } else if (resp.equalsIgnoreCase("N")) {
+                    } else if (resp == 2) {
                         System.out.println("No se ataco al Objeto Volador");
                         System.out.println("");
-                    } else {
-                        throw new InputMismatchException(resp);
-                    }
-                } while (!resp.equalsIgnoreCase("S") && !resp.equalsIgnoreCase("N") );
+                    } 
+                } while (resp != 1 && resp != 2 );
                 
             }
         }

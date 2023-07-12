@@ -9,7 +9,6 @@ import Execpciones.EnergiaInsuficienteException;
 
 public class App {
 
-    
     public static void main(String[] args) throws EnergiaInsuficienteException, InputMismatchException, DamageDeviceException, DestroyedDeviceException {
         
         ArmService armServ = new ArmService();
@@ -158,14 +157,14 @@ public class App {
                     } catch (DestroyedDeviceException e) {
                         System.out.println(e.getMessage());
                     } catch (InputMismatchException e) {
-                        System.out.println("Respuesta inválida");
+                        System.out.println("Respuesta inválida desde el main");
                     }
                     break;
                 case 11:
                     try {
                         armServ.revisarEstadoArmadura(arm);
                     } catch (InputMismatchException e) {
-                        System.out.println("Dato de respuesta inválido desde Service");
+                        System.out.println("Dato de respuesta inválido desde Main");
                     } catch (DestroyedDeviceException e) {
                         System.out.println(e.getMessage());
                     }
